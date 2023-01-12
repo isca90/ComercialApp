@@ -5,7 +5,7 @@
 >  I used a **ASP .NET MVC5** to create the application.
 
 ##### Singular persons and companies have the following aspect in common: name and email
-> All the aspects in commom were written in a abstract class (**People**) from wich both **Singular** and **Companies** inherited.
+> All the aspects in commom were written in an abstract class (**People**) from wich both **Singular** and **Companies** inherited.
 
 ##### The email should be accessible for writing and reading
 >A normal property with both **get** and **set** acessors.

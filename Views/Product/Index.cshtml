@@ -2,10 +2,10 @@
 @model IEnumerable<CommercialApp.Models.Product>
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Products";
 }
 
-<h1>Index</h1>
+<h1>Products</h1>
 
 @if (HttpContextAccessor.HttpContext.Session.GetString("user") == "admin")
 {

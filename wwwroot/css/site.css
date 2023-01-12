@@ -1,11 +1,11 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 * {
-    color: whitesmoke;
+    color: #39393C;
 }
 
 a {
-    color: #EEE8A9;
+    color: #421034;
 }
 
     a:hover {
@@ -54,13 +54,13 @@ a {
 
 .btn-primary {
     color: #fff;
-    background-color: #421034 ;
+    background-color:  #B2789D;
     border-color: #FFD26C;
 }
 
     .btn-primary:hover {
         color: #fff !important;
-        background-color: #B2789D !important;
+        background-color: #745567 !important;
         border-color: #FFD26C !important;
     }
 

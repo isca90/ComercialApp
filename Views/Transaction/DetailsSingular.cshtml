@@ -155,7 +155,7 @@
                 }
                 @if (Model.State == "Awaiting treatment")
                 {
-                    <p class="btn btn-success" style="background-color: white;color :#0081CF "> @Html.ActionLink("Confirm Reception", "ConfirmReception", new { id = Model.TransactionId })</p>
+                    <p class="btn btn-primary" > @Html.ActionLink("Confirm Reception", "ConfirmReception", new { id = Model.TransactionId })</p>
                 }
             </div>
         </div>

@@ -169,7 +169,7 @@ namespace CommercialApp.Controllers
                     await _context.SaveChangesAsync();
                     newTransaction.Total += tdtl.Product.GetPriceWithTax();
                     await _context.SaveChangesAsync();
-                    _notyf.Custom("Item added to the cart", 10, "#907159", "fa fa-shopping-cart"); string tsId = Convert.ToString(tdtl.TransactionId);
+                    _notyf.Custom("Item added to the cart", 10, "#E3B1B1", "fa fa-shopping-cart"); string tsId = Convert.ToString(tdtl.TransactionId);
                     this.HttpContext.Session.SetString("transactionId", tsId);
 
 
@@ -212,7 +212,7 @@ namespace CommercialApp.Controllers
                 await _context.SaveChangesAsync();
                 transaction.Total += tdt.Product.GetPriceWithTax();
                 await _context.SaveChangesAsync();
-                _notyf.Custom("Item added to the cart", 10, "#907159", "fa fa-shopping-cart"); string tId = Convert.ToString(tdt.TransactionId);
+                _notyf.Custom("Item added to the cart", 10, "#E3B1B1", "fa fa-shopping-cart"); string tId = Convert.ToString(tdt.TransactionId);
                 this.HttpContext.Session.SetString("transactionId", tId);
 
                 return RedirectToAction("Index", "Product");
@@ -245,7 +245,7 @@ namespace CommercialApp.Controllers
                     string cartCount = Convert.ToString(cartCountInt);
                     this.HttpContext.Session.SetString("cartCount", cartCount);
                 }
-                _notyf.Custom("Item removed from the cart!", 10, "#907159", "fa fa-shopping-cart");
+                _notyf.Custom("Item removed from the cart!", 10, "#E3B1B1", "fa fa-shopping-cart");
                 var routeValues = new RouteValueDictionary { { "id", transactionId } };
                 return RedirectToAction("DetailsSingular", "Transaction", routeValues);
             }
@@ -285,7 +285,7 @@ namespace CommercialApp.Controllers
                 string cartCount = Convert.ToString(cartCountInt);
                 this.HttpContext.Session.SetString("cartCount", cartCount);
                 string transactionId = acessor.HttpContext.Session.GetString("transactionId");
-                _notyf.Custom("Item added to the cart!", 10, "#907159", "fa fa-shopping-cart");
+                _notyf.Custom("Item added to the cart!", 10, "#E3B1B1", "fa fa-shopping-cart");
                 var routeValues = new RouteValueDictionary { { "id", transactionId } };
                 return RedirectToAction("DetailsSingular", "Transaction", routeValues);
             }
@@ -302,7 +302,7 @@ namespace CommercialApp.Controllers
                 transaction.ChangedBy = transaction.Singular.Username;
                 _context.Transaction.Update(transaction);
                 acessor.HttpContext.Session.SetString("cartCount", "");
-                _notyf.Custom("Order registered!", 10, "#907159", "fa fa-shopping-cart");
+                _notyf.Custom("Order registered!", 10, "#E3B1B1", "fa fa-shopping-cart");
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
@@ -318,7 +318,7 @@ namespace CommercialApp.Controllers
                 transaction.ChangedBy = transaction.Singular.Username;
                 _context.Transaction.Update(transaction);
                 acessor.HttpContext.Session.SetString("cartCount", "");
-                _notyf.Custom("Reception Confirmed!", 10, "#907159", "fa fa-smile-o");
+                _notyf.Custom("Reception Confirmed!", 10, "#E3B1B1", "fa fa-smile-o");
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }

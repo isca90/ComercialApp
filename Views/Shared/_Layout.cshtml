@@ -1,0 +1,155 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CommercialApp</title>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+    <!-- CSS only -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body style="background-color: #006D84 ">
+    <header class="p-3  fixed-top "style="background-color: #006D84 ">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li>
+                        <a class="nav-link px-2 text-white" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li>
+                        <a class="nav-link px-2 text-white" style="text-emphasis-color: #86C232;" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("type") == "company")
+                    {
+                        <li>
+                            <a class="nav-link px-2 text-white" asp-area="" asp-controller="Product" asp-action="IndexByCompany">Product</a>
+                        </li>
+                        <li>
+                            <a class="nav-link px-2 text-white" asp-area="" asp-controller="Transaction" asp-action="GetTransactionByCompany">Transactions</a>
+                        </li>
+                    }
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("user") == "admin")
+                    {
+                        <li>
+                            <a class="nav-link px-2 text-white" asp-area="" asp-controller="Company" asp-action="Index">Company</a>
+                        </li>
+                        <li>
+                            <a class="nav-link px-2 text-white" asp-area="" asp-controller="Singular" asp-action="Index">Singular</a>
+                        </li>
+                        <li>
+                            <a class="nav-link px-2 text-white" asp-area="" asp-controller="Transaction" asp-action="Index">Transactions</a>
+                        </li>
+                    }
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("user") == null || HttpContextAccessor.HttpContext.Session.GetString("type") == "singular")
+                    {
+                        <li>
+                            <a class="nav-link px-2 text-white" asp-area="" asp-controller="Product" asp-action="Index">Product</a>
+                        </li>
+                    }
+                </ul>
+                <div class="text-end">
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("user") == null)
+                    {
+                        <div>
+                            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                                <li>
+                                    <a class=" dropdown-toggle nav-link px-2 text-white" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">Login</a>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="LoginSingular">I'm a client</a></li>
+                                        <li><a class="dropdown-item" asp-area="" asp-controller="Home" asp-action="LoginCompany">I am a Supplier</a></li>
+                                    </ul>
+                                <li><a class="nav-link px-2 text-white" asp-area="" asp-controller="Singular" asp-action="Create">Register</a></li>
+                            </ul>
+                        </div>
+                    }
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("user") != null && HttpContextAccessor.HttpContext.Session.GetString("type") == "singular")
+                    {
+                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                            <li>
+                                <a class=" dropdown-toggle nav-link px-2 text-white" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hello @HttpContextAccessor.HttpContext.Session.GetString("user")
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="/Singular/Edit/@HttpContextAccessor.HttpContext.Session.GetString("userId")">Edit my info</a></li>
+                                    <li><a class="dropdown-item" href="/Transaction/GetTransactionByUser/@HttpContextAccessor.HttpContext.Session.GetString("userId")">Check my orders</a></li>
+                                </ul>
+                            </li>
+                            @if (@HttpContextAccessor.HttpContext.Session.GetString("cartCount") != "")
+                            {
+                                <li>
+                                    <a class="nav-link px-2 text-white position-relative" href="/Transaction/DetailsSingular/@HttpContextAccessor.HttpContext.Session.GetString("transactionId")">
+                                        Cart
+                                        <span class=" translate-middle badge rounded-pill bg-danger">
+                                            @HttpContextAccessor.HttpContext.Session.GetString("cartCount")
+                                            <span class="visually-hidden">unread messages</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                            <li>
+                                <a class="nav-link px-2 text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout </a>
+                            </li>
+                        </ul>
+                    }
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("user") != null && HttpContextAccessor.HttpContext.Session.GetString("type") == "company")
+                    {
+                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                            <li>
+                                <a class=" dropdown-toggle nav-link px-2 text-white" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hello @HttpContextAccessor.HttpContext.Session.GetString("user")
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                    <li><a class="dropdown-item" href="/Company/Edit/@HttpContextAccessor.HttpContext.Session.GetString("userId")">Edit my info</a></li>
+                                    <li><a class="dropdown-item" href="/Transaction/GetTransactionByCompany/@HttpContextAccessor.HttpContext.Session.GetString("userId")">Check my orders</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a class="nav-link px-2 text-white" asp-area="" asp-controller="Home" asp-action="Logout">Logout </a>
+                            </li>
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div role="main" class="row justify-content-md-center">
+            <div class="col-md-auto ">
+               
+            </div>
+            <div class="col col-lg-12 text-center">
+                <br /><br /><br /><br />
+                @RenderBody()
+            </div>
+            <div class="col-md-auto">
+                
+            </div>
+        </div>       
+    </div>
+    @*<div class="container">
+        <main role="main" class="pb-3 text-white">
+            <br /><br /><br />
+            @RenderBody()
+        </main>
+    </div>*@
+
+    <footer class=" footer text-muted">
+        <div class="container">
+            &copy; 2023 - CommercialApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Component.InvokeAsync("Notyf")
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

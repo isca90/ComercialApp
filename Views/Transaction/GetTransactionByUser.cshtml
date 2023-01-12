@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CommercialApp.Models.Transaction>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+
+<h1>My orders</h1>
+<br />
+<div class="text-danger">
+    @ViewBag.Error
+</div>
+@foreach (CommercialApp.Models.Transaction item in Model)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Date
+                </th>
+                <th>
+                    State
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    @item.DateCreated
+                </td>
+                <td>
+                    @item.State
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "DetailsSingular", new { id = item.TransactionId })
+                </td>
+            </tr>
+            @if (item.State == "Awaiting treatment")
+            {
+                @Html.ActionLink("Confirm Reception", "ConfirmReception", new { id = item.TransactionId })
+            }
+        </tbody>
+    </table>
+
+}
+

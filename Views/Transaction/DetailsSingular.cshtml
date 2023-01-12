@@ -1,0 +1,164 @@
+﻿
+@model CommercialApp.Models.Transaction
+
+@{
+    ViewData["Title"] = "DetailsSingular";
+}
+
+<br />
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <br><br>
+        <h4 class="text-center">Shopping cart</h4>
+        <br><br>
+        <div class="container">
+            <table class="table">
+                <h5 class="text-center">Products</h5>
+                <br>
+                <thead>
+                    <tr>
+                        <th>
+                            Product
+                        </th>
+                        <th>
+                            Supplied By
+                        </th>
+                        <th>
+                            Image
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Unit Price (without taxes)
+                        </th>
+                        <th>
+                            Tax Rate %
+                        </th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.TransactionDetails.Count() == 0)
+                    {
+                        <p>There are no products in your cart yet</p>
+                    }
+                    @foreach (CommercialApp.Models.TransactionDetail x in Model.TransactionDetails)
+                    {
+
+                        <tr>
+                            <td>
+                                @(x.Product.Name)
+                            </td>
+                            <td>
+                                @(x.Product.Company.Name)
+                            </td>
+                            <td>
+                                <img src="data:image;base64,@System.Convert.ToBase64String(x.Product.Image)" width="80" height="80" />
+                            </td>
+                            <td>
+                                @(x.Product.Description)
+                            </td>
+                            <td>
+                                @(x.Product.UnitPrice)
+                            </td>
+                            <td>
+                                @(x.Product.TaxRate)
+                            </td>
+                            @if (Model.State == "Open")
+                            {
+                                <td>
+                                    @Html.ActionLink("-", "RemoveProduct", "Transaction", new { id = x.TransactionDetailId })
+                                </td>
+                                <td>
+                                    @Html.ActionLink("+", "AddAnotherProduct", "Transaction", new { id = x.ProductId })
+                                </td>
+                            }
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+
+
+            <p>Quantity: @Model.TransactionDetails.Count()</p>
+            <p>Total (with taxes): @Html.DisplayFor(model => model.Total)</p>
+            <br><br>
+            <h5 class="text-center">Delivery information</h5>
+            <br>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Singular.Email)
+                        </th>
+                        <th>
+                            Contact Number
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Singular.Address)
+                        </th>
+                        <th>
+                            Postal code
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Singular.City)
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(model => model.Singular.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Singular.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Singular.PhoneNumber)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Singular.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Singular.PostalCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(model => model.Singular.City)
+                        </td>
+                        @if (Model.State == "Open")
+                        {
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", "Singular", new { id = Model.Singular.PeopleId })
+                            </td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <div class="form-group">
+                @if (Model.State == "Open")
+                {
+                    <p class="btn btn-primary">@Html.ActionLink("Confirm", "ChangeState", "Transaction", new { id = Model.TransactionId })</p>
+                    <p class="btn btn-primary">@Html.ActionLink("Delete this cart", "Delete", "Transaction", new { id = Model.TransactionId })</p>
+                }
+                @if (Model.State == "Awaiting treatment")
+                {
+                    <p class="btn btn-success" style="background-color: white;color :#0081CF "> @Html.ActionLink("Confirm Reception", "ConfirmReception", new { id = Model.TransactionId })</p>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>

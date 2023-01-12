@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNetCore.Http;
+@model IEnumerable<CommercialApp.Models.Product>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@if (HttpContextAccessor.HttpContext.Session.GetString("user") == "admin")
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Supplier
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UnitPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TaxRate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UnitPrice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaxRate)
+                </td>
+                <td>
+                    @if (item.Image != null)
+                    {
+                        <img src="data:image;base64,@System.Convert.ToBase64String(item.Image)" width="80" height="80" />
+                    }
+                </td>
+                <td>
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("user") == null)
+                    {
+                        @Html.ActionLink("You must login to purchase", "LoginSingular", "Home", new { id = item.ProductId })
+                    }
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("type") == "singular")
+                    {
+                        @Html.ActionLink("Add to cart", "AddToCart", "Transaction", new { id = item.ProductId })
+                    }
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("user") == "admin")
+                    {
+                        <a asp-action="Edit" asp-route-id="@item.ProductId">Edit</a>
+                        <a asp-action="Details" asp-route-id="@item.ProductId">Details</a>
+                        <a asp-action="Delete" asp-route-id="@item.ProductId">Delete</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

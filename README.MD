@@ -5,20 +5,20 @@
 >  I used a **ASP .NET MVC5** to create the application.
 
 ##### Singular persons and companies have the following aspect in common: name and email
-> All the aspects in commom were written in an abstract class (**People**) from wich both **Singular** and **Companies** inherited.
+> All the aspects in commom were written in an abstract class (**People**) from which both **Singular** and **Companies** are inherited.
 
 ##### The email should be accessible for writing and reading
->A normal property with both **get** and **set** acessors.
+>A standard property with **get** and **set** accessor.
 
 ##### The name should only be readable
->I assume this property should be read only AFTER it's created, so I used **init** acessor instead of **set** and enforced this rule in the program code by making this property not acessible for writting in any view setting it as **hidden** in the edit forms.
+>I assumed this property should be read only AFTER it's created, so I used **init** accessor instead of **set** and enforced this rule in the program code by making this property not acessible for writting in any view, setting it as **hidden** in the edit forms.
 
 ##### The singular person has a tax number (called NIF) The company has a tax number (called NIPC)
->Because it's explicity referred with different names I setted tax number as a property of Company and Singular classes instead of People.  
+>Because it's explicitly referred with different names, I set tax number as a property of **Company** and **Singular** classes instead of **People**.  
 
 ##### The NIF and NIPC should not be accessible for writing or reading after the creation of the object.
 >To guarantee the immutability of this property I applied the same logic as I did in **name** field of **People** class.
-Setted the acesor as **init** instead of **set** and enforcing this rule in the program by making this property not acessible for writting in any view setting it as **hidden** in the edit forms and not showing it in any view.
+I set the accessor as **init** instead of **set** and enforced this rule in the program by making this property not acessible for writting in any view, setting it as **hidden** in the edit forms and not showing it in any view.
 
 ##### The NIF and NIPC should be accessible through the method GetIdentificationNumber for both entities (singular persons and companies).
 ```sh
@@ -43,11 +43,11 @@ public sealed class Company : People
 ```
 
 ##### Use an object-oriented programming language of your choice to solve the problem above.
-> I used **C#** because **.NET framework** is fantastic and gives me all the tools I need, this is the language I learned OOP  and data access with and it's the one i'm most confortable with.
-The alternatives would be **Python** but I usually only work with it for simplier shorter programs that rely on basic scripts only or **Javascipt** but I never got to teach myself any JS framework to build a proper web app as I only worked with **JS** as a complement to basic **HTML** pages.
+> I used **C#** because **.NET Core** is fantastic and gives me all the tools I need, this is the language I learned OOP  and data access with therefore it's the one I'm most confortable with.
+The alternatives would be **Python** (but I usually only work with it for simpler shorter programs that rely on basic scripts only) or **Javascipt** (but I never got to teach myself any JS framework to build a proper web app as I only worked with **JS** as a complement to basic **HTML** pages).
 
 ##### Bonus question to go further, if you feel like it :For each Singular person, there is a list of purchases (Identification of the purchased product, unitary price without tax, quantity, tax rate and the reference of the company it has been bought from). For each company, there is a list of their sellings (Identification of the product sold, unitary price without tax, quantity, tax rate and the reference to which Singular person it has been sold to). 
-> ![alt text](https://github.com/isca90/Securibox/blob/main/Diagram.png?raw=true)
+> ![alt text](https://github.com/isca90/ComercialApp/blob/main/Diagram.png?raw=true)
 The program db **Seed** will make sure you have enough data to test this.
 
 

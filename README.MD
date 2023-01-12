@@ -53,7 +53,7 @@ The program db **Seed** will make sure you have enough data to test this.
 
 ##### We wish to perform a check of consistency of the data.Could you propose a way to solve this problem? It does not need to be extensive, but it needs to show how you solve this problem in a logical way.
 >***Data consistency (Request  x  Response)***
-Because i've never worked in a project with a dimention big enough to have these kinds of challenges, I've never really had the need to create a system that dealt with data consistency BUT I know the best pratices about data storage tells us we should always replicate data to avoid single point of failure, in difrent servers preferably in different physical locations  to reduce the chance of losing all servers at the same time.
+Because i've never worked in a project with a dimention big enough to have these kinds of challenges, I've never really had the need to create a system that dealt with data consistency BUT I know the best pratices about data storage tell us we should always replicate data to avoid single point of failure, in different servers preferably in different physical locations  to reduce the chance of losing all servers at the same time.
 We can then pick between ensuring ***strong consistency*** by putting requests on hold until the server can return the updated data, OR if we don't want to sacrifice the performance, we can settle for ***eventual consistency*** and not put the requests on hold but send the data as is.
 To achieve this we can create a timestamp property in our models and everytime a record is updated so is the timestamp. In case some request for that data is made in the meanwhile the user requesting it will be alerted that the information has changed before going on with whatever action.
 
@@ -83,7 +83,7 @@ DBCC CHECKDB (<nameofdb>)
 The program is very simple as it was made to make sure the models were designed correctly and could use more work, namely:
 - needs refactoring to eliminate repetitions and make the code cleaner.
 - one or more interfaces should be implemented to serve as a layer between the models and the controllers and offer all methods necessary.
-- the models and de DAL should be added to the solution as a library so it's user to adapt to a multi layer scalable solution.
+- the models and the DAL should be added to the solution as a library so it's easier to adapt to a multi layer scalable solution.
 - ***ASP .NET CORE Identity*** should have been used to enforce authentication and authorization as it surely is more secure then the code I wrote.
 - the look and feel definitely needs work.
 - the model could have more tables to add ***Categories*** to ***Products*** and a way to deal with ***Stock*** should be implemented.

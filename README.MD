@@ -79,6 +79,10 @@ DBCC CHECKDB (<nameofdb>)
 - logged in as ***admin*** you can create a new ***Company*** wich will be able to then create products.
 - log in as ***Singular*** and test away.
 
+## Known issues
+-When your creating a product if any field has an error you will have to upload the product image again
+-In price field you can't write  ,
+
 ## Notes
 The program is very simple as it was made to make sure the models were designed correctly and could use more work, namely:
 - needs refactoring to eliminate repetitions and make the code cleaner.
